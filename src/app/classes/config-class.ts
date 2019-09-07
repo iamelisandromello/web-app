@@ -1,5 +1,5 @@
 export class ConfigClass {
-    get UrlApi() {
+    static getUrlApi() {
         return 'http://localhost:3000';
     }
 
