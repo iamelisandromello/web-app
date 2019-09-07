@@ -19,4 +19,11 @@ const caminho = `${ConfigClass.getUrlApi().toString()}/galeria`;
 export class GaleriaService {
 
   constructor(private http: HttpClient) { }
+
+  getTodos():Observable<HttpResponse<RespostaClass>> {
+    return this.http.get<RespostaClass>(
+      caminho, {observe :'response'}
+    )
+  }
+
 }
