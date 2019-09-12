@@ -57,11 +57,12 @@
 
                 <div class="form-group">
                     <label for="exampleFormControlFile1">Imagem</label>
-                    <input type="file" class="form-control-file" id="imgUpload" name="imgUpload">
+                    <input type="file" class="form-control-file" id="imgUpload" name="imgUpload"
+                    (change) = "carregarImagem($event)" >
                 </div>
 
                 <div class="form-group">
-                    <img src="" id="imgPrevia" name="imgPrevia" class="img-fluid" alt="..." />
+                    <img [src]="imagemUrl" id="imgPrevia" name="imgPrevia" class="img-fluid" alt="..." />
                 </div>
 
                 

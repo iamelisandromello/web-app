@@ -17,6 +17,7 @@ export class ManterGaleriaComponent implements OnInit {
   server              : String  = ConfigClass.getUrlApi().toString();
   mensagem            : any;
   galeriaFormGroup    : any;
+  imagemUrl           : any;  
 
   constructor( private galeriService:GaleriaService, private formBuilder: FormBuilder ) { }
 
@@ -40,6 +41,23 @@ export class ManterGaleriaComponent implements OnInit {
     console.log('salvando dados...');
     console.log(this.galeriaFormGroup.value);
     console.log(this.galeriaFormGroup);
+  }
+
+  carregarImagem( event ) {
+    console.log('carragndo uma imagem ...'); // verificar se a imagem foi selecionada
+    if(event.target.files.length > 0) {
+      console.log('entrou ...'); // verificar se a imagem foi selecionada
+      let campoUploadImagem  = event.target;
+      const leitor = new FileReader();
+      const arquivo = campoUploadImagem.files[0];
+      leitor.readAsDataURL(arquivo);
+      leitor.onload = () => {
+        const dataUrl = leitor.result;
+        this.imagemUrl = dataUrl;
+        console.log("dados imagem: ", this.imagemUrl);
+      }
+    }
+
   }
 
   verificarRetornoHttp(resp){
