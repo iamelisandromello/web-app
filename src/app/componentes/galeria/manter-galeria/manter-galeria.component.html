@@ -1,8 +1,9 @@
 <h1>Cadastro Imagens Galeria</h1>
 <div id="msg" [innerHTML] = "mensagem" ></div>
 
-<div id="listagem" [hidden]= "exibirListagemForms" >
-    <button id='btn-exibir-formulario' type="button" class="btn btn-primary">
+<div id="listagem" [hidden]= "exibriListagemForm" >
+    <button id='btn-exibir-formulario' type="button" class="btn btn-primary"
+    (click) = "prepararFormCadastro()">
         <i class="far fa-file-image"></i> Cadastrar</button>
     <br>
     <br>
@@ -37,19 +38,21 @@
     </div>
 </div>
 
-<div id="formulario" [hidden]= "!exibirListagemForms">
+<div id="formulario" [hidden]= "!exibriListagemForm">
     <div class="row">
         <div class="col-sm">
-            <form method="POST" action="/" id="galeriaForm">
+            <form method="POST" action="/" id="galeriaForm" [formGroup] = "galeriaFormGroup" (ngSubmit)="onSubmit()">
 
                 <div class="form-group">
                     <label for="id">Código</label>
-                    <input type="number" class="form-control" id="id_galeria" name="id_galeria"/>
+                    <input type="number" class="form-control" id="id_galeria" name="id_galeria"
+                    formControlName = "id_galeria" disabled="disabled" />
                 </div>
 
                 <div class="form-group">
                     <label for="nomeBoot">Título</label>
-                    <input type="text" class="form-control" id="titulo" name="titulo" placeholder="Informe o Título"/>
+                    <input type="text" class="form-control" id="titulo" name="titulo" placeholder="Informe o Título"
+                    formControlName = "titulo" />
                 </div>
 
                 <div class="form-group">

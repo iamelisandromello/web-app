@@ -1,23 +1,45 @@
 import { Component, OnInit } from '@angular/core';
+import { FormGroup, FormControl } from '@angular/forms';
+import { FormBuilder } from '@angular/forms';
 import { GaleriaService } from '../../../servicos/galeria/galeria.service';
-import { ConfigClass }from '../../../classes/config-class';
+import { ConfigClass }from '../../../classes/config-class'; 
 
 @Component({
   selector: 'app-manter-galeria',
   templateUrl: './manter-galeria.component.html',
   styleUrls: ['./manter-galeria.component.css']
 })
+
 export class ManterGaleriaComponent implements OnInit {
 
   exibriListagemForm  : boolean = false;
   listImgGaleria      : any;
   server              : String  = ConfigClass.getUrlApi().toString();
   mensagem            : any;
+  galeriaFormGroup    : any;
 
-  constructor( private galeriService:GaleriaService ) { }
+  constructor( private galeriService:GaleriaService, private formBuilder: FormBuilder ) { }
 
   ngOnInit() {
+    this.galeriaFormGroup = this.formBuilder .group({
+      id_galeria    : [],
+      titulo        : [],
+      dados_imagem  : null
+    });
+
     this.listar();
+  }
+
+  prepararFormCadastro() {
+    this.limparMSgAlert();
+    this.exibriListagemForm = true;
+    //console.log("teste");   
+  }
+
+  onSubmit() {
+    console.log('salvando dados...');
+    console.log(this.galeriaFormGroup.value);
+    console.log(this.galeriaFormGroup);
   }
 
   verificarRetornoHttp(resp){
@@ -55,7 +77,7 @@ export class ManterGaleriaComponent implements OnInit {
     this.mensagem = dados;
   }
 
-  limparAlert() {
+  limparMSgAlert() {
     this.mensagem = "";
   }
 
