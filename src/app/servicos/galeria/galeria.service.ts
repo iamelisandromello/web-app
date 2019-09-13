@@ -26,4 +26,11 @@ export class GaleriaService {
     )
   }
 
+  cadastrar(dados: any):Observable<HttpResponse<RespostaClass>> {
+    return this.http.post<RespostaClass>(
+      caminho, dados, {observe :'response'}
+    );
+  }
+
+
 }

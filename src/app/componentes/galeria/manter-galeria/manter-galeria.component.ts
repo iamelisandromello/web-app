@@ -41,12 +41,34 @@ export class ManterGaleriaComponent implements OnInit {
     console.log('salvando dados...');
     console.log(this.galeriaFormGroup.value);
     console.log(this.galeriaFormGroup);
+
+    this.cadastrar(this.galeriaFormGroup.value);
+
+  }
+
+  cadastrar(dados: any) {
+    console.log(dados);
+    this.galeriService.cadastrar(dados).subscribe( resp => {
+        if(!this.verificarRetornoHttp(resp)) {
+          this.limparForm();
+          this.listar();
+          this.exibriListagemForm = false;
+        }
+      }
+    );
+  }
+
+  limparForm(){
+    this.galeriaFormGroup.reset();
+    let formHTML = <HTMLFontElement>document.getElementById('galeriaForm');
+    //formHTML.reset();
+    this.imagemUrl = null;
   }
 
   carregarImagem( event ) {
-    console.log('carragndo uma imagem ...'); // verificar se a imagem foi selecionada
+    console.log('carregando uma imagem ...'); // verificar se a imagem foi selecionada
     if(event.target.files.length > 0) {
-      console.log('entrou ...'); // verificar se a imagem foi selecionada
+      console.log('Imagem Selecionada ...'); // verificar se a imagem foi selecionada
       let campoUploadImagem  = event.target;
       const leitor = new FileReader();
       const arquivo = campoUploadImagem.files[0];
@@ -55,6 +77,13 @@ export class ManterGaleriaComponent implements OnInit {
         const dataUrl = leitor.result;
         this.imagemUrl = dataUrl;
         console.log("dados imagem: ", this.imagemUrl);
+
+        this.galeriaFormGroup.get('dados_imagem').setValue({
+           nome_arquivo   : arquivo.name,
+           tipo_arquivo   : arquivo.type,
+           imagem_base64  : (leitor.result as string).split(',')[1]
+        });
+        console.log('dados cadastro: ', this.galeriaFormGroup.value);
       }
     }
 
