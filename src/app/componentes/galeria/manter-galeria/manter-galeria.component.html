@@ -25,7 +25,8 @@
                         <td>{{item.titulo}}</td>                        
                         <td><img src="{{item.caminho}}" class="img-fluid" width="30%" alt="Responsive image"></td>                        
                         <td>
-                            <button class="btn btn-danger" >Editar</button>
+                            <button class="btn btn-danger"
+                            (click)='prepararFormEditar(item.id_galeria)' >Editar</button>
                         </td>
                         <td>
                             <button class="btn btn-danger">Excluir</button>
@@ -46,13 +47,13 @@
                 <div class="form-group">
                     <label for="id">Código</label>
                     <input type="number" class="form-control" id="id_galeria" name="id_galeria"
-                    formControlName = "id_galeria" disabled="disabled" />
+                    formControlName = "id_galeria" disabled="disabled"  [(ngModel)] = "registro.id_galeria"/>
                 </div>
 
                 <div class="form-group">
                     <label for="nomeBoot">Título</label>
                     <input type="text" class="form-control" id="titulo" name="titulo" placeholder="Informe o Título"
-                    formControlName = "titulo" />
+                    formControlName = "titulo" [(ngModel)] = "registro.titulo"/>
                 </div>
 
                 <div class="form-group">

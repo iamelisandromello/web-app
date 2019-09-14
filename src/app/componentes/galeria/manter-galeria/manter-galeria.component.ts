@@ -4,6 +4,7 @@ import { FormBuilder } from '@angular/forms';
 import { GaleriaService } from '../../../servicos/galeria/galeria.service';
 import { ConfigClass }from '../../../classes/config-class'; 
 
+
 @Component({
   selector: 'app-manter-galeria',
   templateUrl: './manter-galeria.component.html',
@@ -17,7 +18,8 @@ export class ManterGaleriaComponent implements OnInit {
   server              : String  = ConfigClass.getUrlApi().toString();
   mensagem            : any;
   galeriaFormGroup    : any;
-  imagemUrl           : any;  
+  imagemUrl           : any;
+  registro            : any = {}; 
 
   constructor( private galeriService:GaleriaService, private formBuilder: FormBuilder ) { }
 
@@ -58,10 +60,26 @@ export class ManterGaleriaComponent implements OnInit {
     );
   }
 
+  prepararFormEditar(id : number): void {
+    console.log('id', id);
+    this.exibriListagemForm = true;
+
+    this.galeriService.getId(id).subscribe(resp =>{
+      if(!this.verificarRetornoHttp(resp)) {
+        this.registro.id_galeria = resp.body.dados[0].id_galeria;
+        this.registro.titulo = resp.body.dados[0].titulo;
+        if(resp.body.dados[0].caminho != null) {
+          this.imagemUrl = this.server + resp.body.dados[0].caminho.substring(1);
+          console.log('IMG :', this.imagemUrl = this.server + resp.body.dados[0].caminho.substring(1));
+        }
+      }
+    });
+  }
+
   limparForm(){
     this.galeriaFormGroup.reset();
-    let formHTML = <HTMLFontElement>document.getElementById('galeriaForm');
-    //formHTML.reset();
+    let formHTML = <HTMLFontElement >document.getElementById('galeriaForm');
+    //formHTML.onreset;
     this.imagemUrl = null;
   }
 

@@ -26,6 +26,12 @@ export class GaleriaService {
     )
   }
 
+  getId(id: number): Observable<HttpResponse<RespostaClass>> {
+    return this.http.get<RespostaClass>(
+      `${caminho}/${id}`, {observe :'response'}
+    )
+  }
+
   cadastrar(dados: any):Observable<HttpResponse<RespostaClass>> {
     return this.http.post<RespostaClass>(
       caminho, dados, {observe :'response'}
