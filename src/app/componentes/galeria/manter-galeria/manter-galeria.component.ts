@@ -4,7 +4,6 @@ import { FormBuilder } from '@angular/forms';
 import { GaleriaService } from '../../../servicos/galeria/galeria.service';
 import { ConfigClass }from '../../../classes/config-class'; 
 
-
 @Component({
   selector: 'app-manter-galeria',
   templateUrl: './manter-galeria.component.html',
@@ -44,8 +43,28 @@ export class ManterGaleriaComponent implements OnInit {
     console.log(this.galeriaFormGroup.value);
     console.log(this.galeriaFormGroup);
 
-    this.cadastrar(this.galeriaFormGroup.value);
+    //Verificar Operação CAdastrar/Salvar
+    if(this.registro.id_galeria) {
+      console.log('Entrou no editar');
+      console.log(this.galeriaFormGroup);
+      this.editar(this.galeriaFormGroup.value);
+    }
+    else {
+      this.cadastrar(this.galeriaFormGroup.value);
+    }
 
+  }
+
+  editar(dados: any) {
+    console.log(dados);
+    this.galeriService.editar(dados).subscribe( resp => {
+        if(!this.verificarRetornoHttp(resp)) {
+          this.limparForm();
+          this.listar();
+          this.exibriListagemForm = false;
+        }
+      }
+    );
   }
 
   cadastrar(dados: any) {
@@ -76,10 +95,25 @@ export class ManterGaleriaComponent implements OnInit {
     });
   }
 
+  deletar(id: number): void {
+    console.log('Deletar ID: ', id);
+    this.galeriService.deletar(id).subscribe(resp => {
+      if(!this.verificarRetornoHttp(resp )) {
+        this.listar();
+        
+      }
+    })
+  }
+
+  cancelarOpercao() {
+    this.limparForm();
+    this.exibriListagemForm = false;
+  }
+
   limparForm(){
     this.galeriaFormGroup.reset();
-    let formHTML = <HTMLFontElement >document.getElementById('galeriaForm');
-    //formHTML.onreset;
+    let formHTML = <HTMLFormElement >document.getElementById('galeriaForm');
+    formHTML.reset();
     this.imagemUrl = null;
   }
 
@@ -129,8 +163,10 @@ export class ManterGaleriaComponent implements OnInit {
 
   exibirMsgAlert(msg, tipo) {
     let dados = "";
+
+    console.log('msg:', tipo);
     if(tipo == "sucesso") {
-      dados = `<div classe 'alert alert-success' role='alert'> 
+      dados = `<div class = 'alert alert-success' role='alert'> 
         <strong>${msg}</strong>
       </div>`;
     }

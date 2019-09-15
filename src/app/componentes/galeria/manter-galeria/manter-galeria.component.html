@@ -26,10 +26,11 @@
                         <td><img src="{{item.caminho}}" class="img-fluid" width="30%" alt="Responsive image"></td>                        
                         <td>
                             <button class="btn btn-danger"
-                            (click)='prepararFormEditar(item.id_galeria)' >Editar</button>
+                            (click)='prepararFormEditar(item.id_galeria)'>Editar</button>
                         </td>
                         <td>
-                            <button class="btn btn-danger">Excluir</button>
+                            <button class="btn btn-danger"
+                            (click)='deletar(item.id_galeria)'>Excluir</button>
                         </td>
                     </tr>
 
@@ -68,7 +69,8 @@
                 
                 <div class="form-inline">
                     <button id='cadastrar-boot' type="submit" class="btn btn-primary mr-sm-2">Salvar</button>                    
-                    <button id='btn-cancelar-operacao' type="button" class="btn btn-primary">Cancelar</button>
+                    <button id='btn-cancelar-operacao' type="button" class="btn btn-primary"
+                    (click)="cancelarOpercao()">Cancelar</button>
                 </div>
 
             </form>

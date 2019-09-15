@@ -32,11 +32,22 @@ export class GaleriaService {
     )
   }
 
+  editar(dados: any):Observable<HttpResponse<RespostaClass>> {
+    return this.http.put<RespostaClass>(
+      caminho, dados, {observe :'response'}
+    );
+  }
+
   cadastrar(dados: any):Observable<HttpResponse<RespostaClass>> {
     return this.http.post<RespostaClass>(
       caminho, dados, {observe :'response'}
     );
   }
 
+  deletar(id: number): Observable<HttpResponse<RespostaClass>> {
+    return this.http.delete<RespostaClass>(
+      `${caminho}/${id}`, {observe :'response'}
+    )
+  }
 
 }
