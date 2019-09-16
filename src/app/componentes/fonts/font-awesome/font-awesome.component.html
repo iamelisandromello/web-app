@@ -1,0 +1,106 @@
+<h1> Exemplos impressionantes de fontes </h1>
+
+<h3> Ícone como objeto (com atributo title - inspecione o DOM para vê-lo) </h3>
+<fa-icon [icon]="faCoffee" title="Coffee: Best Drink Ever"></fa-icon>
+
+<hr>
+<h3> Ícone pesquisado na biblioteca por nome </h3>
+<p> Possível após adicionar o ícone <code> faUser </code> do pacote <code> free-solid-svg-icons </code> à biblioteca. </p>
+<p> O prefixo padrão de <code> fas </code> é assumido. Além disso, adicione uma borda. </p>
+<fa-icon icon='user' [border]="true" a11yRole="presentation"></fa-icon>
+
+<hr>
+<h3> Ícones duotônicos </h3>
+<fa-duotone-icon [icon]="faDummy"></fa-duotone-icon>
+<p> Troque a opacidade da camada. </p>
+<fa-duotone-icon [icon]="faDummy" swapOpacity="true"></fa-duotone-icon>
+<p> Opacidade personalizada da camada primária ou secundária. </p>
+<fa-duotone-icon [icon]="faDummy" primaryOpacity="0.7" secondaryOpacity="0.1"></fa-duotone-icon>
+<p> Cor da camada primária ou secundária personalizada. </p>
+<fa-duotone-icon [icon]="faDummy" primaryColor="red" secondaryColor="blue"></fa-duotone-icon>
+
+<hr>
+<h3> Ícone com prefixo de estilo não padrão usando [prefix, iconName] </h3>
+<p> <code> ícone </code> deve ser definido como igual a um objeto de matriz com dois elementos de sequência: o prefixo e o nome do ícone. </p>
+<p> O uso de uma string para um nome de ícone também requer que esse ícone tenha sido adicionado à biblioteca com  <code>library.add()</code></p>
+<fa-icon [icon]="['far','user']"></fa-icon>
+
+<hr>
+<h3> Ícone como objeto com prefixo não padrão </h3>
+<p> O objeto icon conhece seu próprio prefixo; portanto, o prefixo não é especificado neste caso. </p>
+<fa-icon [icon]="regularUser"></fa-icon>
+
+<hr>
+<h3> Com máscara e transformação </h3>
+<fa-icon [icon]="faCircle" transform="shrink-9 right-4" [mask]="faSquare"></fa-icon>
+
+<hr>
+<h3> Alterar tamanho </h3>
+<fa-icon [icon]="faAdjust" size="2x"></fa-icon>
+
+<hr>
+<h3> Animação </h3>
+<p> Clique para alternar a animação. </p>
+<fa-icon [icon]="faSync" [spin]="isSyncAnimated" (click)="isSyncAnimated =! isSyncAnimated"></fa-icon>
+
+<hr>
+<p> Deslize para aumentar a magia. </p>
+<fa-icon [icon]="faMagic" transform="rotate-{{magicLevel}}"></fa-icon>
+<input type='range' [value]="magicLevel" (input)="magicLevel = $event.target.value"/>
+
+<hr>
+<h3> Pilha </h3>
+<p> Empilhe vários ícones em um. </p>
+<fa-stack>
+  <fa-icon [icon]="faCircle" stackItemSize="2x"></fa-icon>
+  <fa-icon [icon]="solidFlag" [inverse]="true" stackItemSize="1x"></fa-icon>
+</fa-stack>
+
+<hr>
+<h3> Camadas </h3>
+<p> Ícones personalizados criados com várias camadas. </p>
+<div>
+  <fa-layers [fixedWidth]="true" size="4x">
+    <fa-icon [icon]="faCircle" [styles]="{color: 'Tomato'}"></fa-icon>
+    <fa-icon [icon]="faTimes" [inverse]="true" transform="shrink-6"></fa-icon>
+  </fa-layers>
+  <fa-layers [fixedWidth]="true" size="4x">
+    <fa-icon [icon]="faMobile"></fa-icon>
+    <fa-icon [icon]="faBatteryQuarter" transform="shrink-11 up-1.5" [styles]="{color: 'Tomato'}"></fa-icon>
+  </fa-layers>
+  <fa-layers [fixedWidth]="true" size="4x">
+    <fa-icon [icon]="faFighterJet"></fa-icon>
+    <fa-icon [icon]="faCircle" [inverse]="true" transform="shrink-13.8 right-1.8"></fa-icon>
+    <fa-icon [icon]="faEllipsisH" transform="shrink-13 up-6.8 right-2"></fa-icon>
+    <fa-icon [icon]="faEllipsisH" transform="shrink-13 down-6.8 right-2"></fa-icon>
+  </fa-layers>
+</div>
+
+<hr>
+<p>Usando texto como uma das camadas.</p>
+<div>
+  <fa-layers [fixedWidth]="true" size="4x">
+    <fa-icon [icon]="faFlag"></fa-icon>
+    <fa-layers-text title="Fort Awesome" [content]="'NICO'" transform="up-4" [styles]="{'font-size': '0.3em'}"></fa-layers-text>
+  </fa-layers>
+</div>
+
+<hr>
+<p>Deslize e aumente o número. </p>
+<input type='range'
+       [min]="1000"
+       [max]="2000"
+       [value]="notificationsCounter"
+       (input)="notificationsCounter = $event.target.value"/>
+<div>
+  <fa-layers [fixedWidth]="true" size="3x">
+    <fa-icon [icon]="faBell"></fa-icon>
+    <fa-layers-counter [content]="notificationsCounter | number" title="Unread Messages"></fa-layers-counter>
+  </fa-layers>
+</div>
+
+
+
+
+
+    
